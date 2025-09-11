@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <title>How Georgian Police Crushed Pro-EU Protests</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" as="script">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Safe area insets for notched devices */
+            --safe-area-top: env(safe-area-inset-top, 0px);
+            --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-area-left: env(safe-area-inset-left, 0px);
+            --safe-area-right: env(safe-area-inset-right, 0px);
+            
+            /* Dynamic viewport heights */
+            --vh: 1vh;
+            --dvh: 100vh;
+            
+            /* Stark color scheme */
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --blood-red: #cc0000;
+            --dark-red: #990000;
+            --light-gray: #f8f8f8;
+            --mid-gray: #666666;
+        }
+
+        body {
+            background: var(--pure-black);
+            overflow-x: hidden;
+            overflow-y: auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            touch-action: manipulation;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: var(--pure-white);
+            min-height: var(--dvh);
+            min-height: 100dvh;
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--blood-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .progress-container.visible {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blood-red), var(--dark-red));
+            width: 0%;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px rgba(204, 0, 0, 0.5);
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-20px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(20px); opacity: 0; }
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--blood-red);
+            border: 3px solid var(--pure-black);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 4px 0px var(--pure-black), 0 4px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--pure-white);
+            text-decoration: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            line-height: 1;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .back-to-top:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 6px 6px 0px var(--pure-black), 0 6px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .back-to-top:active {
+            transform: translateY(0) scale(0.95);
+            box-shadow: 2px 2px 0px var(--pure-black), 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Tooltip for back to top button */
+        .back-to-top::after {
+            content: 'Back to Top';
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--pure-black);
+            color: var(--pure-white);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            border: 2px solid var(--blood-red);
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-to-top:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-50%) translateX(-5px);
+        }
+
+        /* Mobile adjustments */
+        @media screen and (max-width: 768px) {
+            .back-to-top {
+                bottom: max(20px, var(--safe-area-bottom));
+                right: max(20px, var(--safe-area-right));
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .back-to-top::after {
+                display: none; /* Hide tooltip on mobile */
+            }
+        }
+
+        /* Optimize images for mobile */
+        img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: optimizeQuality;
+        }
+
+        /* Main container */
+        .main-container {
+            width: 100%;
+            background: var(--pure-black);
+        }
+
+        /* Main content sections */
+        .content-section {
+            background: var(--pure-white);
+            color: var(--pure-black);
+            padding: var(--safe-area-top) max(20px, var(--safe-area-right)) 0 max(20px, var(--safe-area-left));
+        }
+
+        /* Hero section */
+        .hero-section {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: clamp(40px, 8vh, 80px) 20px clamp(60px, 10vh, 120px);
+            position: relative;
+        }
+
+        /* Hero image styles */
+        .hero-image-container {
+            width: 100%;
+            margin: 0 auto clamp(40px, 8vh, 60px);
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            border: 4px solid var(--pure-black);
+            box-shadow: 8px 8px 0px var(--blood-red);
+            background: var(--pure-white);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .main-title {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            color: var(--pure-black);
+            font-size: clamp(28px, 8vw, 64px);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: clamp(20px, 4vh, 30px);
+            opacity: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            text-shadow: 3px 3px 0px var(--blood-red);
+        }
+
+        .subtitle {
+            background: var(--blood-red);
+            color: var(--pure-white);
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: clamp(16px, 4vw, 24px);
+            font-weight: 700;
+            padding: 15px 30px;
+            margin: 0 auto clamp(30px, 6vh, 50px);
+            opacity: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 3px solid var(--pure-black);
+            box-shadow: 6px 6px 0px var(--pure-black);
+            max-width: fit-content;
+            transform: rotate(-1deg);
+        }
+
+        /* Byline styles */
+        .byline {
+            margin-top: clamp(30px, 6vh, 40px);
+            opacity: 0;
+            transform: translateY(20px);
+            border-top: 2px solid var(--pure-black);
+            padding-top: 20px;
+        }
+
+        .byline p {
+            color: var(--pure-black);
+            font-family: 'Arial', sans-serif;
+            font-size: clamp(14px, 3vw, 16px);
+            margin-bottom: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .byline .date {
+            color: var(--mid-gray);
+            font-size: clamp(12px, 2.5vw, 14px);
+            font-style: italic;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        /* Introduction section */
+        .intro-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px clamp(60px, 10vh, 100px);
+        }
+
+        .intro-content {
+            background: var(--pure-black);
+            color: var(--pure-white);
+            border: 4px solid var(--blood-red);
+            padding: clamp(30px, 6vw, 50px);
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+            box-shadow: 8px 8px 0px var(--blood-red);
+        }
+
+        .intro-content p {
+            font-family: 'Arial', sans-serif;
+            font-size: clamp(16px, 3.5vw, 20px);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .intro-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Comic Section - FULL WIDTH */
+        .comic-section {
+            background: var(--pure-white);
+            width: 100vw;
+            position: relative;
+            border-top: 4px solid var(--pure-black);
+            border-bottom: 4px solid var(--pure-black);
+        }
+
+        .comic-section-title {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            color: var(--pure-black);
+            font-size: clamp(24px, 6vw, 42px);
+            font-weight: 900;
+            text-align: center;
+            margin: 0;
+            padding: clamp(30px, 6vh, 50px) 20px clamp(20px, 4vh, 30px);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(30px);
+            background: var(--blood-red);
+            color: var(--pure-white);
+            border-bottom: 4px solid var(--pure-black);
+        }
+
+        .comic-section-subtitle {
+            color: var(--mid-gray);
+            font-size: clamp(14px, 3vw, 18px);
+            text-align: center;
+            margin-bottom: clamp(20px, 4vh, 30px);
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .comic-container {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .comic-panel {
+            margin: 0;
+            opacity: 0;
+            will-change: opacity, transform;
+            position: relative;
+            transform: translateY(50px) scale(0.95);
+            border-bottom: 2px solid var(--pure-black);
+        }
+
+        .comic-panel:last-child {
+            border-bottom: none;
+        }
+
+        .comic-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: var(--pure-white);
+            object-fit: contain;
+        }
+
+        .error-placeholder {
+            background: var(--light-gray);
+            color: var(--mid-gray);
+            padding: 40px 20px;
+            text-align: center;
+            border: 2px dashed var(--mid-gray);
+            font-style: italic;
+        }
+
+        /* Story end marker */
+        .story-end {
+            padding: clamp(30px, 6vh, 50px) 20px;
+            text-align: center;
+            background: var(--pure-white);
+            position: relative;
+        }
+
+        .story-end::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            right: 20px;
+            height: 3px;
+            background: repeating-linear-gradient(
+                to right,
+                var(--blood-red) 0px,
+                var(--blood-red) 20px,
+                transparent 20px,
+                transparent 40px
+            );
+            transform: translateY(-50%);
+        }
+
+        .story-end-text {
+            background: var(--pure-white);
+            padding: 0 20px;
+            font-family: "Classic Comic W01 Regular", 'Impact', 'Arial Black', sans-serif;
+            font-size: clamp(14px, 3vw, 18px);
+            color: var(--blood-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Final end section */
+        .final-end {
+            background: var(--pure-black);
+            color: var(--pure-white);
+            padding: clamp(60px, 12vh, 120px) 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .final-end::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--blood-red);
+        }
+
+        .final-end h2 {
+            font-family: "Classic Comic W01 Regular", 'Impact', 'Arial Black', sans-serif;
+            color: var(--blood-red);
+            font-size: clamp(24px, 5vw, 36px);
+            font-weight: 900;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .final-end p {
+            font-family: "Classic Comic W01 Regular", 'Arial', sans-serif;
+            font-size: clamp(16px, 3.5vw, 20px);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Responsive design enhancements */
+        @media screen and (min-width: 769px) {
+            .content-section {
+                padding: var(--safe-area-top) max(40px, var(--safe-area-right)) 0 max(40px, var(--safe-area-left));
+            }
+            
+            .comic-section {
+                max-width: 800px;
+                margin: 0 auto;
+                border-left: 4px solid var(--pure-black);
+                border-right: 4px solid var(--pure-black);
+            }
+            
+            .comic-container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 0 40px;
+            }
+            
+            .hero-section {
+                padding: clamp(60px, 10vh, 100px) 40px clamp(80px, 12vh, 140px);
+            }
+
+            .main-title {
+                font-size: clamp(36px, 10vw, 72px);
+            }
+        }
+
+        @media screen and (min-width: 1024px) {
+            .comic-section {
+                max-width: 900px;
+            }
+            
+            .comic-container {
+                max-width: 900px;
+                padding: 0 60px;
+            }
+            
+            .hero-section {
+                padding: clamp(80px, 12vh, 120px) 60px clamp(100px, 15vh, 160px);
+            }
+
+            .main-title {
+                font-size: clamp(48px, 12vw, 84px);
+            }
+        }
+
+        /* Hide all elements initially for animation */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading spinner -->
+    <div class="loading-spinner" id="loadingSpinner"></div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <div class="content-section">
+            <div class="hero-section">
+                <!-- Hero Image -->
+                <div class="hero-image-container" id="heroImageContainer">
+                    <img class="hero-image" 
+                         src="HERO IMAGE.webp" 
+                         alt="Hero image depicting the situation in Georgia"
+                         loading="eager"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>HERO IMAGE.webp - Image not found</div>'">
+                </div>
+                
+                <h1 class="main-title" id="mainTitle">How Georgian Police Crushed Pro-EU Protests</h1>
+                <div class="subtitle" id="subtitle">Interactive Investigation</div>
+                
+                <!-- Byline -->
+                <div class="byline" id="byline">
+                    <p>An investigation by [Your Publication]</p>
+                    <p class="date">December 2024</p>
+                </div>
+            </div>
+
+            <!-- Introduction -->
+            <div class="intro-section">
+                <div class="intro-content" id="introContent">
+                    <p>Following Georgia's decision to halt EU accession talks, the streets of Tbilisi became a battleground between pro-European demonstrators and riot police. What emerged from those chaotic nights were disturbing accounts of systematic violence and abuse.</p>
+                    
+                    <p>Through interviews with victims, witnesses, and human rights defenders, this investigation reveals the personal stories behind the headlines—tales of ordinary citizens who found themselves at the center of an extraordinary moment in Georgia's democratic struggle.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intro Comic Section -->
+        <div class="comic-section">
+            <h2 class="comic-section-title" id="introComicTitle">How it all began</h2>
+            <p class="comic-section-subtitle">The events that led to the protests</p>
+            
+            <div class="comic-container">
+                <!-- Intro Panel 1 -->
+                <article class="comic-panel" id="introPanelStoryZero1">
+                    <img class="comic-image" 
+                         src="Story Zero - Page 1.webp" 
+                         alt="Intro story - Page 1"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story Zero - Page 1.webp - Image not found</div>'">
+                </article>
+
+                <!-- Intro Panel 2 -->
+                <article class="comic-panel" id="introPanelStoryZero2">
+                    <img class="comic-image" 
+                         src="Story Zero - Page 2.webp" 
+                         alt="Intro story - Page 2"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story Zero - Page 2.webp - Image not found</div>'">
+                </article>
+
+                <!-- Intro Panel 3 -->
+                <article class="comic-panel" id="introPanelStoryZero3">
+                    <img class="comic-image" 
+                         src="Story Zero - Page 3.webp" 
+                         alt="Intro story - Page 3"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story Zero - Page 3.webp - Image not found</div>'">
+                </article>
+            </div>
+        </div>
+
+        <!-- Story 1 Comic Section -->
+        <div class="comic-section">
+            <h2 class="comic-section-title" id="story1ComicTitle">Giorgi Gamgebeli's Story</h2>
+            <p class="comic-section-subtitle">A photographer's encounter with violence</p>
+            
+            <div class="comic-container">
+                <!-- Story 1 Panel 1 -->
+                <article class="comic-panel" id="story1Panel1">
+                    <img class="comic-image" 
+                         src="Story One - Page 1.webp" 
+                         alt="Giorgi's story - Page 1"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 1.webp - Image not found</div>'">
+                </article>
+
+                <!-- Story 1 Panel 2 -->
+                <article class="comic-panel" id="story1Panel2">
+                    <img class="comic-image" 
+                         src="Story One - Page 2.webp" 
+                         alt="Giorgi's story - Page 2"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 2.webp - Image not found</div>'">
+                </article>
+
+                <!-- Story 1 Panel 3 -->
+                <article class="comic-panel" id="story1Panel3">
+                    <img class="comic-image" 
+                         src="Story One - Page 3.webp" 
+                         alt="Giorgi's story - Page 3"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 3.webp - Image not found</div>'">
+                </article>
+
+                <!-- Story 1 Panel 4 -->
+                <article class="comic-panel" id="story1Panel4">
+                    <img class="comic-image" 
+                         src="Story One - Page 4.webp" 
+                         alt="Giorgi's story - Page 4"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 4.webp - Image not found</div>'">
+                </article>
+
+                <!-- Story 1 Panel 5 -->
+                <article class="comic-panel" id="story1Panel5">
+                    <img class="comic-image" 
+                         src="Story One - Page 5.webp" 
+                         alt="Giorgi's story - Page 5"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 5.webp - Image not found</div>'">
+                </article>
+
+                <!-- Story 1 Panel 6 -->
+                <article class="comic-panel" id="story1Panel6">
+                    <img class="comic-image" 
+                         src="Story One - Page 6.webp" 
+                         alt="Giorgi's story - Page 6"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 6.webp - Image not found</div>'">
+                </article>
+            </div>
+            
+            <!-- Story End Marker -->
+            <div class="story-end">
+                <div class="story-end-text">End of Story</div>
+            </div>
+        </div>
+
+        <!-- Story 2 Comic Section -->
+        <div class="comic-section">
+            <h2 class="comic-section-title" id="story2ComicTitle">Tornike Chelidze's Story</h2>
+            <p class="comic-section-subtitle">A poet's ordeal in detention</p>
+            
+            <div class="comic-container">
+                <!-- Story 2 Panel 1 -->
+                <article class="comic-panel" id="story2Panel1">
+                    <img class="comic-image" 
+                         src="Story two-Page 1.webp" 
+                         alt="Tornike's story - Page 1"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story two-Page 1.webp - Image not found</div>'">
+                </article>
+
+                <!-- Story 2 Panel 2 -->
+                <article class="comic-panel" id="story2Panel2">
+                    <img class="comic-image" 
+                         src="Story two-Page 2.webp" 
+                         alt="Tornike's story - Page 2"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story two-Page 2.webp - Image not found</div>'">
+                </article>
+
+                <!-- Story 2 Panel 3 -->
+                <article class="comic-panel" id="story2Panel3">
+                    <img class="comic-image" 
+                         src="Story two-Page 3.webp" 
+                         alt="Tornike's story - Page 3"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story two-Page 3.webp - Image not found</div>'">
+                </article>
+
+                <!-- Story 2 Panel 4 -->
+                <article class="comic-panel" id="story2Panel4">
+                    <img class="comic-image" 
+                         src="Story two-Page 4.webp" 
+                         alt="Tornike's story - Page 4"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story two-Page 4.webp - Image not found</div>'">
+                </article>
+
+                <!-- Story 2 Panel 5 -->
+                <article class="comic-panel" id="story2Panel5">
+                    <img class="comic-image" 
+                         src="Story two-Page 5.webp" 
+                         alt="Tornike's story - Page 5"
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story two-Page 5.webp - Image not found</div>'">
+                </article>
+            </div>
+            
+            <!-- Story End Marker -->
+            <div class="story-end">
+                <div class="story-end-text">End of Story</div>
+            </div>
+        </div>
+
+        <!-- Final End Section -->
+        <div class="final-end">
+            <h2 id="finalTitle">The Investigation Continues</h2>
+            <p id="finalText">These stories represent just a fraction of the accounts from Georgia's protests. The fight for justice and democratic values continues, and the voices of those who suffered must not be forgotten.</p>
+        </div>
+    </div>
+
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Progress bar variables
+        let progressTicking = false;
+
+        // Dynamic viewport height fix
+        function setDynamicVH() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            document.documentElement.style.setProperty('--dvh', `${window.innerHeight}px`);
+        }
+
+        // Performance optimization
+        function isLowEndDevice() {
+            return navigator.hardwareConcurrency < 4 || 
+                   navigator.deviceMemory < 4 || 
+                   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        function initializeGSAP() {
+            if (isLowEndDevice()) {
+                gsap.config({
+                    force3D: false,
+                    nullTargetWarn: false
+                });
+            }
+        }
+
+        // Progress bar functionality
+        function updateProgressBar() {
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const backToTop = document.getElementById('backToTop');
+            
+            if (!progressContainer || !progressBar || !backToTop) return;
+            
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            // Show progress bar and back to top button after scrolling past hero section
+            if (scrollTop > 200) {
+                progressContainer.classList.add('visible');
+                backToTop.classList.add('visible');
+            } else {
+                progressContainer.classList.remove('visible');
+                backToTop.classList.remove('visible');
+            }
+            
+            // Update progress bar width
+            progressBar.style.width = Math.min(Math.max(scrollPercent, 0), 100) + '%';
+        }
+
+        // Back to top functionality
+        function scrollToTop() {
+            const scrollDuration = 800;
+            const start = window.pageYOffset;
+            const startTime = performance.now();
+            
+            function easeInOutCubic(t) {
+                return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            }
+            
+            function animateScroll(currentTime) {
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / scrollDuration, 1);
+                const ease = easeInOutCubic(progress);
+                
+                window.scrollTo(0, start * (1 - ease));
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animateScroll);
+                }
+            }
+            
+            requestAnimationFrame(animateScroll);
+        }
+
+        // Setup comic panel scroll animations
+        function setupComicPanelAnimations() {
+            const panels = document.querySelectorAll('.comic-panel');
+            console.log(`Found ${panels.length} comic panels`);
+            
+            // Initialize all panels with GSAP
+            gsap.set(panels, {
+                opacity: 0,
+                y: 50,
+                scale: 0.95
+            });
+            
+            panels.forEach((panel, index) => {
+                ScrollTrigger.create({
+                    trigger: panel,
+                    start: "top 90%",
+                    end: "bottom 10%",
+                    markers: false,
+                    onEnter: () => {
+                        gsap.to(panel, {
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                            duration: 1,
+                            ease: "power2.out"
+                        });
+                    },
+                    onLeave: () => {
+                        // Keep panels visible when scrolling down
+                    },
+                    onEnterBack: () => {
+                        gsap.to(panel, {
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                            duration: 0.6,
+                            ease: "power2.out"
+                        });
+                    },
+                    onLeaveBack: () => {
+                        gsap.to(panel, {
+                            opacity: 0,
+                            y: 50,
+                            scale: 0.95,
+                            duration: 0.4,
+                            ease: "power2.in"
+                        });
+                    },
+                    refreshPriority: -1
+                });
+            });
+            
+            ScrollTrigger.refresh();
+        }
+
+        // Main animation sequence
+        function animateMainMenu() {
+            const tl = gsap.timeline();
+            
+            // Set initial states
+            gsap.set("#heroImageContainer", { opacity: 0, y: 30, scale: 0.95 });
+            gsap.set("#mainTitle", { opacity: 0, y: -30, scale: 0.9 });
+            gsap.set("#subtitle", { opacity: 0, x: -50, rotation: -2 });
+            gsap.set("#byline", { opacity: 0, y: 20 });
+            gsap.set("#introContent", { opacity: 0, y: 30 });
+            gsap.set(".comic-section-title", { opacity: 0, y: 30 });
+            gsap.set(".comic-section-subtitle", { opacity: 0, y: 20 });
+            gsap.set("#finalTitle", { opacity: 0, y: 30 });
+            gsap.set("#finalText", { opacity: 0, y: 20 });
+            
+            tl.to("#heroImageContainer", {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 1.2,
+                ease: "power2.out"
+            })
+            .to("#mainTitle", {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 1,
+                ease: "back.out(1.2)"
+            }, "-=0.6")
+            .to("#subtitle", {
+                opacity: 1,
+                x: 0,
+                rotation: -1,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.4")
+            .to("#byline", {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out"
+            }, "-=0.3")
+            .to("#introContent", {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.2")
+            .to(".comic-section-title", {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out"
+            }, "-=0.3")
+            .to(".comic-section-subtitle", {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.2,
+                ease: "power2.out"
+            }, "-=0.5")
+            .to("#finalTitle", {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.2")
+            .to("#finalText", {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out"
+            }, "-=0.4");
+
+            setupComicPanelAnimations();
+        }
+
+        // Error handling
+        function handleErrors() {
+            window.addEventListener('error', (e) => {
+                console.error('Error:', e.error);
+            });
+            
+            document.addEventListener('error', (e) => {
+                if (e.target.tagName === 'IMG') {
+                    e.target.style.opacity = '0.5';
+                    e.target.alt = 'Image failed to load';
+                }
+            }, true);
+        }
+
+        // Initialize everything
+        function initializeApp() {
+            const spinner = document.getElementById('loadingSpinner');
+            if (spinner) spinner.remove();
+            
+            // Force scroll to top
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            
+            setDynamicVH();
+            initializeGSAP();
+            handleErrors();
+            
+            // Initialize progress bar
+            updateProgressBar();
+            
+            // Setup back to top button
+            const backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                backToTop.addEventListener('click', scrollToTop);
+                backToTop.addEventListener('touchstart', function() {}, { passive: true }); // iOS hover fix
+            }
+            
+            setTimeout(() => {
+                animateMainMenu();
+                // Refresh ScrollTrigger after setup
+                setTimeout(() => {
+                    console.log('Refreshing ScrollTrigger...');
+                    ScrollTrigger.refresh();
+                    console.log('ScrollTrigger refreshed');
+                }, 2000);
+            }, 100);
+        }
+
+        // Force scroll to top on page reload
+        window.addEventListener('beforeunload', () => {
+            window.scrollTo(0, 0);
+        });
+
+        // Prevent browser from restoring scroll position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        // Event listeners
+        window.addEventListener('resize', () => {
+            setDynamicVH();
+            ScrollTrigger.refresh();
+            updateProgressBar();
+        });
+        
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                setDynamicVH();
+                ScrollTrigger.refresh();
+                updateProgressBar();
+            }, 100);
+        });
+
+        // Progress bar scroll listener
+        window.addEventListener('scroll', function() {
+            if (!progressTicking) {
+                requestAnimationFrame(() => {
+                    updateProgressBar();
+                    progressTicking = false;
+                });
+                progressTicking = true;
+            }
+        }, { passive: true });
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+    </script>
+</body>
+</html>
