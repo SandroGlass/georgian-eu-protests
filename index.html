@@ -121,17 +121,20 @@
             100% { transform: translateX(20px); opacity: 0; }
         }
 
-        /* Navigation Container */
-        .nav-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 998;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px) scale(0.8);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+       /* Navigation Container - positioned where back-to-top was */
+.nav-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
         .nav-container.visible {
             opacity: 1;
@@ -141,82 +144,92 @@
 
         /* Navigation buttons layout */
         .nav-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
+    display: flex;
+    flex-direction: column-reverse; /* Reverses order so back-to-top appears first */
+    gap: 8px;
+    margin-bottom: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    order: 1; /* Places nav buttons above burger menu */
+}
+
 
         /* Individual navigation button */
-        .nav-btn {
-            width: 60px;
-            height: 50px;
-            background: var(--pure-black);
-            border: 3px solid var(--blood-red);
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Impact', 'Arial Black', sans-serif;
-            font-size: 14px;
-            font-weight: 900;
-            color: var(--blood-red);
-            text-decoration: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            line-height: 1;
-            transition: all 0.3s ease;
-            box-shadow: 2px 2px 0px var(--blood-red), 0 2px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-            text-align: center;
-        }
+.nav-btn {
+    width: 55px;
+    height: 45px;
+    background: var(--pure-black);
+    border: 3px solid var(--blood-red);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--blood-red);
+    text-decoration: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 0px var(--blood-red), 0 2px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+}
 
-        .nav-btn:hover {
-            background: var(--blood-red);
-            color: var(--pure-white);
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 4px 4px 0px var(--pure-black), 0 4px 20px rgba(0, 0, 0, 0.4);
-        }
+.nav-btn:hover {
+    background: var(--blood-red);
+    color: var(--pure-white);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 4px 4px 0px var(--pure-black), 0 4px 20px rgba(0, 0, 0, 0.4);
+}
 
-        .nav-btn:active {
-            transform: translateY(0) scale(0.95);
-            box-shadow: 1px 1px 0px var(--pure-black), 0 1px 8px rgba(0, 0, 0, 0.3);
-        }
+.nav-btn:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 1px 1px 0px var(--pure-black), 0 1px 8px rgba(0, 0, 0, 0.3);
+}
 
-        /* Back to Top Button */
-        .back-to-top {
-            width: 60px;
-            height: 60px;
-            background: var(--blood-red);
-            border: 3px solid var(--pure-black);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Impact', 'Arial Black', sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--pure-white);
-            text-decoration: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            line-height: 1;
-            transition: all 0.3s ease;
-            box-shadow: 4px 4px 0px var(--pure-black), 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
+        /* Back to Top Button - now appears first (at top) */
+.back-to-top {
+    width: 55px;
+    height: 45px;
+    background: var(--blood-red);
+    border: 3px solid var(--pure-black);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--pure-white);
+    text-decoration: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 0px var(--pure-black), 0 2px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+}
 
-        .back-to-top:hover {
-            background: var(--dark-red);
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 6px 6px 0px var(--pure-black), 0 6px 25px rgba(0, 0, 0, 0.4);
-        }
+.back-to-top:hover {
+    background: var(--dark-red);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 4px 4px 0px var(--pure-black), 0 4px 20px rgba(0, 0, 0, 0.4);
+}
 
-        .back-to-top:active {
-            transform: translateY(0) scale(0.95);
-            box-shadow: 2px 2px 0px var(--pure-black), 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
+.back-to-top:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 1px 1px 0px var(--pure-black), 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
 
         /* Tooltips for navigation buttons */
         .nav-btn::after {
@@ -277,30 +290,39 @@
             transform: translateY(-50%) translateX(-5px);
         }
 
-        /* Mobile adjustments */
-        @media screen and (max-width: 768px) {
-            .nav-container {
-                bottom: max(20px, var(--safe-area-bottom));
-                right: max(20px, var(--safe-area-right));
-            }
+        
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    .nav-container {
+        bottom: max(20px, var(--safe-area-bottom));
+        right: max(20px, var(--safe-area-right));
+    }
 
-            .nav-btn {
-                width: 50px;
-                height: 40px;
-                font-size: 12px;
-            }
+    .burger-menu {
+        width: 60px;
+        height: 60px;
+    }
 
-            .back-to-top {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-            }
+    .burger-line {
+        width: 20px;
+        height: 2px;
+    }
 
-            .nav-btn::after,
-            .back-to-top::after {
-                display: none; /* Hide tooltips on mobile */
-            }
-        }
+    .nav-btn, .back-to-top {
+        width: 50px;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .back-to-top {
+        font-size: 18px;
+    }
+
+    .nav-btn::after,
+    .back-to-top::after {
+        display: none; /* Hide tooltips on mobile */
+    }
+}
 
         /* Optimize images for mobile */
         img {
@@ -641,6 +663,98 @@
         .hidden {
             display: none !important;
         }
+ /* Burger Menu Button - now at the bottom */
+.burger-menu {
+    width: 70px;
+    height: 70px;
+    background: var(--pure-black);
+    border: 3px solid var(--blood-red);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 20px rgba(204, 0, 0, 0.3), 4px 4px 0px var(--blood-red);
+    animation: pulse-glow 2s infinite ease-in-out;
+    order: 2; /* Places burger menu at bottom */
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(204, 0, 0, 0.3), 4px 4px 0px var(--blood-red);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(204, 0, 0, 0.6), 4px 4px 0px var(--blood-red);
+    }
+}
+
+.burger-menu:hover {
+    background: var(--blood-red);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 40px rgba(204, 0, 0, 0.8), 6px 6px 0px var(--pure-black);
+    animation: none;
+}
+
+.burger-menu:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 0 15px rgba(204, 0, 0, 0.5), 2px 2px 0px var(--pure-black);
+}
+
+/* Burger Lines */
+.burger-line {
+    width: 24px;
+    height: 3px;
+    background: var(--blood-red);
+    margin: 2px 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+}
+
+.burger-menu:hover .burger-line {
+    background: var(--pure-white);
+}
+
+.burger-menu.active .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger-menu.active .burger-line:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.burger-menu.active:hover .burger-line {
+    background: var(--pure-white);
+}
+
+/* Update existing nav-buttons class */
+.nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.nav-buttons.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
     </style>
 </head>
 <body>
@@ -652,15 +766,24 @@
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <!-- Navigation Container -->
-    <div class="nav-container" id="navContainer">
-        <div class="nav-buttons">
-            <button class="nav-btn" id="navStory1" data-tooltip="Story 1">S1</button>
-            <button class="nav-btn" id="navStory2" data-tooltip="Story 2">S2</button>
-            <button class="nav-btn" id="navEpilogue" data-tooltip="Epilogue">EP</button>
-        </div>
+<!-- Navigation Container -->
+<div class="nav-container" id="navContainer">
+    <div class="nav-buttons" id="navButtons">
         <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+        <button class="nav-btn" id="navStory1" data-tooltip="Story 1">ST1</button>
+        <button class="nav-btn" id="navStory2" data-tooltip="Story 2">ST2</button>
+        <button class="nav-btn" id="navEpilogue" data-tooltip="Epilogue">END</button>
     </div>
+    
+    <!-- Burger Menu Button -->
+    <div class="burger-menu" id="burgerMenu">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </div>
+</div>
+    
+
 
     <!-- Main Container -->
     <div class="main-container">
@@ -733,8 +856,8 @@
 
         <!-- Story 1 Comic Section -->
         <div class="comic-section">
-            <h2 class="comic-section-title" id="story1ComicTitle">Giorgi Gamgebeli's Story</h2>
-            <p class="comic-section-subtitle">A photographer's encounter with violence</p>
+            <h2 class="comic-section-title" id="story1ComicTitle">The night they broke my camera</h2>
+            <p class="comic-section-subtitle">Story One</p>
             
             <div class="comic-container">
                 <!-- Story 1 Panel 1 -->
@@ -794,14 +917,14 @@
             
             <!-- Story End Marker -->
             <div class="story-end">
-                <div class="story-end-text">End of Story</div>
+                <div class="story-end-text">End of Story One</div>
             </div>
         </div>
 
         <!-- Story 2 Comic Section -->
         <div class="comic-section">
-            <h2 class="comic-section-title" id="story2ComicTitle">Tornike Chelidze's Story</h2>
-            <p class="comic-section-subtitle">A poet's ordeal in detention</p>
+            <h2 class="comic-section-title" id="story2ComicTitle">Spotted by the beanie</h2>
+            <p class="comic-section-subtitle">Story Two</p>
             
             <div class="comic-container">
                 <!-- Story 2 Panel 1 -->
@@ -852,14 +975,14 @@
             
             <!-- Story End Marker -->
             <div class="story-end">
-                <div class="story-end-text">End of Story</div>
+                <div class="story-end-text">End of Story Two</div>
             </div>
         </div>
 
         <!-- Epilogue Comic Section -->
         <div class="comic-section">
             <h2 class="comic-section-title" id="epilogueComicTitle">Epilogue</h2>
-            <p class="comic-section-subtitle">The aftermath and ongoing struggle</p>
+            <p class="comic-section-subtitle">Whats the aftermath?</p>
             
             <div class="comic-container">
                 <!-- Epilogue Panel -->
@@ -881,7 +1004,7 @@
         <!-- Final End Section -->
         <div class="final-end">
             <h2 id="finalTitle">The Investigation Continues</h2>
-            <p id="finalText">These stories represent just a fraction of the accounts from Georgia's protests. The fight for justice and democratic values continues, and the voices of those who suffered must not be forgotten.</p>
+            <p id="finalText">These stories represent just a fraction of the accounts from Georgia's protests. Here's how I told it:</p>
         </div>
     </div>
 
@@ -1011,49 +1134,94 @@
         }
 
         // Setup navigation functionality
-        function setupNavigation() {
-            // Navigation button event listeners
-            const navStory1 = document.getElementById('navStory1');
-            const navStory2 = document.getElementById('navStory2');
-            const navEpilogue = document.getElementById('navEpilogue');
-            const backToTop = document.getElementById('backToTop');
+function setupNavigation() {
+    // Navigation button event listeners
+    const navStory1 = document.getElementById('navStory1');
+    const navStory2 = document.getElementById('navStory2');
+    const navEpilogue = document.getElementById('navEpilogue');
+    const backToTop = document.getElementById('backToTop');
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navButtons = document.getElementById('navButtons');
 
-            // Debug: Check if target elements exist
-            console.log('Target elements check:');
-            console.log('story1ComicTitle:', document.getElementById('story1ComicTitle'));
-            console.log('story2ComicTitle:', document.getElementById('story2ComicTitle'));
-            console.log('epilogueComicTitle:', document.getElementById('epilogueComicTitle'));
-
-            if (navStory1) {
-                navStory1.addEventListener('click', () => {
-                    console.log('S1 clicked, scrolling to story1ComicTitle');
-                    scrollToSection('story1ComicTitle');
-                });
-                navStory1.addEventListener('touchstart', function() {}, { passive: true });
-            }
-
-            if (navStory2) {
-                navStory2.addEventListener('click', () => {
-                    console.log('S2 clicked, scrolling to story2ComicTitle');
-                    scrollToSection('story2ComicTitle');
-                });
-                navStory2.addEventListener('touchstart', function() {}, { passive: true });
-            }
-
-            if (navEpilogue) {
-                navEpilogue.addEventListener('click', () => {
-                    console.log('EP clicked, scrolling to epilogueComicTitle');
-                    scrollToSection('epilogueComicTitle');
-                });
-                navEpilogue.addEventListener('touchstart', function() {}, { passive: true });
-            }
-
-            if (backToTop) {
-                backToTop.addEventListener('click', scrollToTop);
-                backToTop.addEventListener('touchstart', function() {}, { passive: true });
-            }
+    // Burger menu toggle functionality
+    let isMenuOpen = false;
+    
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        burgerMenu.classList.toggle('active', isMenuOpen);
+        navButtons.classList.toggle('open', isMenuOpen);
+        
+        // Add haptic feedback on mobile
+        if ('vibrate' in navigator) {
+            navigator.vibrate(50);
         }
+    }
 
+    // Close menu when clicking on navigation buttons
+    function closeMenu() {
+        isMenuOpen = false;
+        burgerMenu.classList.remove('active');
+        navButtons.classList.remove('open');
+    }
+
+    if (burgerMenu) {
+        burgerMenu.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu();
+        });
+        burgerMenu.addEventListener('touchstart', function() {}, { passive: true });
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        const navContainer = document.getElementById('navContainer');
+        if (isMenuOpen && navContainer && !navContainer.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    // Debug: Check if target elements exist
+    console.log('Target elements check:');
+    console.log('story1ComicTitle:', document.getElementById('story1ComicTitle'));
+    console.log('story2ComicTitle:', document.getElementById('story2ComicTitle'));
+    console.log('epilogueComicTitle:', document.getElementById('epilogueComicTitle'));
+
+    if (navStory1) {
+        navStory1.addEventListener('click', () => {
+            console.log('S1 clicked, scrolling to story1ComicTitle');
+            scrollToSection('story1ComicTitle');
+            closeMenu();
+        });
+        navStory1.addEventListener('touchstart', function() {}, { passive: true });
+    }
+
+    if (navStory2) {
+        navStory2.addEventListener('click', () => {
+            console.log('S2 clicked, scrolling to story2ComicTitle');
+            scrollToSection('story2ComicTitle');
+            closeMenu();
+        });
+        navStory2.addEventListener('touchstart', function() {}, { passive: true });
+    }
+
+    if (navEpilogue) {
+        navEpilogue.addEventListener('click', () => {
+            console.log('EP clicked, scrolling to epilogueComicTitle');
+            scrollToSection('epilogueComicTitle');
+            closeMenu();
+        });
+        navEpilogue.addEventListener('touchstart', function() {}, { passive: true });
+    }
+
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            scrollToTop();
+            closeMenu();
+        });
+        backToTop.addEventListener('touchstart', function() {}, { passive: true });
+    }
+}
         // Setup comic panel scroll animations
         function setupComicPanelAnimations() {
             const panels = document.querySelectorAll('.comic-panel');
