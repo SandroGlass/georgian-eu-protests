@@ -769,11 +769,12 @@
 <!-- Navigation Container -->
 <div class="nav-container" id="navContainer">
     <div class="nav-buttons" id="navButtons">
-        <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
-        <button class="nav-btn" id="navStory1" data-tooltip="Story 1">ST1</button>
-        <button class="nav-btn" id="navStory2" data-tooltip="Story 2">ST2</button>
-        <button class="nav-btn" id="navEpilogue" data-tooltip="Epilogue">END</button>
-    </div>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+    <button class="nav-btn" id="navPrologue" data-tooltip="Prologue">PRLG</button>
+    <button class="nav-btn" id="navStory1" data-tooltip="Story 1">PT1</button>
+    <button class="nav-btn" id="navStory2" data-tooltip="Story 2">PT2</button>
+    <button class="nav-btn" id="navEpilogue" data-tooltip="Epilogue">EPLG</button>
+</div>
     
     <!-- Burger Menu Button -->
     <div class="burger-menu" id="burgerMenu">
@@ -1131,6 +1132,7 @@
         // Setup navigation functionality
 function setupNavigation() {
     // Navigation button event listeners
+    const navPrologue = document.getElementById('navPrologue');
     const navStory1 = document.getElementById('navStory1');
     const navStory2 = document.getElementById('navStory2');
     const navEpilogue = document.getElementById('navEpilogue');
@@ -1182,6 +1184,14 @@ function setupNavigation() {
     console.log('story2ComicTitle:', document.getElementById('story2ComicTitle'));
     console.log('epilogueComicTitle:', document.getElementById('epilogueComicTitle'));
 
+if (navPrologue) {
+    navPrologue.addEventListener('click', () => {
+        console.log('Prologue clicked, scrolling to introComicTitle');
+        scrollToSection('introComicTitle');
+        closeMenu();
+    });
+    navPrologue.addEventListener('touchstart', function() {}, { passive: true });
+}
     if (navStory1) {
         navStory1.addEventListener('click', () => {
             console.log('S1 clicked, scrolling to story1ComicTitle');
