@@ -11,13 +11,15 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+ 
     <!-- Open Graph / Social Media -->
-<meta property="og:type" content="article">
-<meta property="og:title" content="How Georgian Police Crushed Pro-EU Protests">
-<meta property="og:description" content="An AI-assisted comic revealing personal stories of people abused during Georgia's pro-European demonstrations.">
-<meta property="og:image" content="https://sandroglass.github.io/georgian-eu-protests/og-image.jpg">
-<meta property="og:url" content="https://sandroglass.github.io/georgian-eu-protests/">
-<meta property="og:site_name" content="By Sandro Gvindadze">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How Georgia's Police Crushed Pro-EU Protests">
+    <meta property="og:description" content="An AI-assisted comic revealing personal stories of people abused during Georgia's pro-European demonstrations.">
+    <meta property="og:image" content="https://sandroglass.github.io/georgian-eu-protests/og-image.jpg">
+    <meta property="og:url" content="https://sandroglass.github.io/georgian-eu-protests/">
+    <meta property="og:site_name" content="By Sandro Gvindadze">
+    
     
     <style>
         * {
@@ -27,17 +29,12 @@
         }
 
         :root {
-            /* Safe area insets for notched devices */
             --safe-area-top: env(safe-area-inset-top, 0px);
             --safe-area-bottom: env(safe-area-inset-bottom, 0px);
             --safe-area-left: env(safe-area-inset-left, 0px);
             --safe-area-right: env(safe-area-inset-right, 0px);
-            
-            /* Dynamic viewport heights */
             --vh: 1vh;
             --dvh: 100vh;
-            
-            /* Stark color scheme */
             --pure-black: #000000;
             --pure-white: #ffffff;
             --blood-red: #cc0000;
@@ -59,7 +56,6 @@
             min-height: 100dvh;
         }
 
-        /* Loading spinner */
         .loading-spinner {
             position: fixed;
             top: 50%;
@@ -79,7 +75,6 @@
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* Progress Bar */
         .progress-container {
             position: fixed;
             top: 0;
@@ -121,20 +116,19 @@
             100% { transform: translateX(20px); opacity: 0; }
         }
 
-       /* Navigation Container - positioned where back-to-top was */
-.nav-container {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 998;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px) scale(0.8);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+        .nav-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .nav-container.visible {
             opacity: 1;
@@ -142,96 +136,97 @@
             transform: translateY(0) scale(1);
         }
 
-        /* Navigation buttons layout */
         .nav-buttons {
-    display: flex;
-    flex-direction: column-reverse; /* Reverses order so back-to-top appears first */
-    gap: 8px;
-    margin-bottom: 15px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px) scale(0.8);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-    order: 1; /* Places nav buttons above burger menu */
-}
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 8px;
+            margin-bottom: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            order: 1;
+        }
 
+        .nav-buttons.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
 
-        /* Individual navigation button */
-.nav-btn {
-    width: 55px;
-    height: 45px;
-    background: var(--pure-black);
-    border: 3px solid var(--blood-red);
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 13px;
-    font-weight: 900;
-    color: var(--blood-red);
-    text-decoration: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    line-height: 1;
-    transition: all 0.3s ease;
-    box-shadow: 2px 2px 0px var(--blood-red), 0 2px 15px rgba(0, 0, 0, 0.3);
-    position: relative;
-    text-align: center;
-}
+        .nav-btn {
+            width: 55px;
+            height: 45px;
+            background: var(--pure-black);
+            border: 3px solid var(--blood-red);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 13px;
+            font-weight: 900;
+            color: var(--blood-red);
+            text-decoration: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            line-height: 1;
+            transition: all 0.3s ease;
+            box-shadow: 2px 2px 0px var(--blood-red), 0 2px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            text-align: center;
+        }
 
-.nav-btn:hover {
-    background: var(--blood-red);
-    color: var(--pure-white);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 4px 4px 0px var(--pure-black), 0 4px 20px rgba(0, 0, 0, 0.4);
-}
+        .nav-btn:hover {
+            background: var(--blood-red);
+            color: var(--pure-white);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 4px 4px 0px var(--pure-black), 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
 
-.nav-btn:active {
-    transform: translateY(0) scale(0.95);
-    box-shadow: 1px 1px 0px var(--pure-black), 0 1px 8px rgba(0, 0, 0, 0.3);
-}
+        .nav-btn:active {
+            transform: translateY(0) scale(0.95);
+            box-shadow: 1px 1px 0px var(--pure-black), 0 1px 8px rgba(0, 0, 0, 0.3);
+        }
 
-        /* Back to Top Button - now appears first (at top) */
-.back-to-top {
-    width: 55px;
-    height: 45px;
-    background: var(--blood-red);
-    border: 3px solid var(--pure-black);
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 20px;
-    font-weight: 900;
-    color: var(--pure-white);
-    text-decoration: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    line-height: 1;
-    transition: all 0.3s ease;
-    box-shadow: 2px 2px 0px var(--pure-black), 0 2px 15px rgba(0, 0, 0, 0.3);
-    position: relative;
-    text-align: center;
-}
+        .back-to-top {
+            width: 55px;
+            height: 45px;
+            background: var(--blood-red);
+            border: 3px solid var(--pure-black);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--pure-white);
+            text-decoration: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            line-height: 1;
+            transition: all 0.3s ease;
+            box-shadow: 2px 2px 0px var(--pure-black), 0 2px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            text-align: center;
+        }
 
-.back-to-top:hover {
-    background: var(--dark-red);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 4px 4px 0px var(--pure-black), 0 4px 20px rgba(0, 0, 0, 0.4);
-}
+        .back-to-top:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 4px 4px 0px var(--pure-black), 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
 
-.back-to-top:active {
-    transform: translateY(0) scale(0.95);
-    box-shadow: 1px 1px 0px var(--pure-black), 0 1px 8px rgba(0, 0, 0, 0.3);
-}
+        .back-to-top:active {
+            transform: translateY(0) scale(0.95);
+            box-shadow: 1px 1px 0px var(--pure-black), 0 1px 8px rgba(0, 0, 0, 0.3);
+        }
 
-
-        /* Tooltips for navigation buttons */
         .nav-btn::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -290,60 +285,125 @@
             transform: translateY(-50%) translateX(-5px);
         }
 
-        
-/* Mobile adjustments */
-@media screen and (max-width: 768px) {
-    .nav-container {
-        bottom: max(20px, var(--safe-area-bottom));
-        right: max(20px, var(--safe-area-right));
-    }
+        .burger-menu {
+            width: 70px;
+            height: 70px;
+            background: var(--pure-black);
+            border: 3px solid var(--blood-red);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(204, 0, 0, 0.3), 4px 4px 0px var(--blood-red);
+            animation: pulse-glow 2s infinite ease-in-out;
+            order: 2;
+        }
 
-    .burger-menu {
-        width: 60px;
-        height: 60px;
-    }
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(204, 0, 0, 0.3), 4px 4px 0px var(--blood-red);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(204, 0, 0, 0.6), 4px 4px 0px var(--blood-red);
+            }
+        }
 
-    .burger-line {
-        width: 20px;
-        height: 2px;
-    }
+        .burger-menu:hover {
+            background: var(--blood-red);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 40px rgba(204, 0, 0, 0.8), 6px 6px 0px var(--pure-black);
+            animation: none;
+        }
 
-    .nav-btn, .back-to-top {
-        width: 50px;
-        height: 40px;
-        font-size: 12px;
-    }
+        .burger-menu:active {
+            transform: translateY(0) scale(0.95);
+            box-shadow: 0 0 15px rgba(204, 0, 0, 0.5), 2px 2px 0px var(--pure-black);
+        }
 
-    .back-to-top {
-        font-size: 18px;
-    }
+        .burger-line {
+            width: 24px;
+            height: 3px;
+            background: var(--blood-red);
+            margin: 2px 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
 
-    .nav-btn::after,
-    .back-to-top::after {
-        display: none; /* Hide tooltips on mobile */
-    }
-}
+        .burger-menu:hover .burger-line {
+            background: var(--pure-white);
+        }
 
-        /* Optimize images for mobile */
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .burger-menu.active:hover .burger-line {
+            background: var(--pure-white);
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                bottom: max(20px, var(--safe-area-bottom));
+                right: max(20px, var(--safe-area-right));
+            }
+
+            .burger-menu {
+                width: 60px;
+                height: 60px;
+            }
+
+            .burger-line {
+                width: 20px;
+                height: 2px;
+            }
+
+            .nav-btn, .back-to-top {
+                width: 50px;
+                height: 40px;
+                font-size: 12px;
+            }
+
+            .back-to-top {
+                font-size: 18px;
+            }
+
+            .nav-btn::after,
+            .back-to-top::after {
+                display: none;
+            }
+        }
+
         img {
             image-rendering: -webkit-optimize-contrast;
             image-rendering: optimizeQuality;
         }
 
-        /* Main container */
         .main-container {
             width: 100%;
             background: var(--pure-black);
         }
 
-        /* Main content sections */
         .content-section {
             background: var(--pure-white);
             color: var(--pure-black);
             padding: var(--safe-area-top) max(20px, var(--safe-area-right)) 0 max(20px, var(--safe-area-left));
         }
 
-        /* Hero section */
         .hero-section {
             text-align: center;
             max-width: 900px;
@@ -352,7 +412,6 @@
             position: relative;
         }
 
-        /* Hero image styles */
         .hero-image-container {
             width: 100%;
             margin: 0 auto clamp(40px, 8vh, 60px);
@@ -401,7 +460,6 @@
             transform: rotate(-1deg);
         }
 
-        /* Byline styles */
         .byline {
             margin-top: clamp(30px, 6vh, 40px);
             opacity: 0;
@@ -428,7 +486,6 @@
             letter-spacing: normal;
         }
 
-        /* Introduction section */
         .intro-section {
             max-width: 800px;
             margin: 0 auto;
@@ -458,7 +515,6 @@
             margin-bottom: 0;
         }
 
-        /* Comic Section - FULL WIDTH */
         .comic-section {
             background: var(--pure-white);
             width: 100vw;
@@ -532,7 +588,6 @@
             font-style: italic;
         }
 
-        /* Story end marker */
         .story-end {
             padding: clamp(30px, 6vh, 50px) 20px;
             text-align: center;
@@ -560,7 +615,7 @@
         .story-end-text {
             background: var(--pure-white);
             padding: 0 20px;
-            font-family: "Classic Comic W01 Regular", 'Impact', 'Arial Black', sans-serif;
+            font-family: 'Impact', 'Arial Black', sans-serif;
             font-size: clamp(14px, 3vw, 18px);
             color: var(--blood-red);
             text-transform: uppercase;
@@ -570,7 +625,6 @@
             z-index: 1;
         }
 
-        /* Final end section */
         .final-end {
             background: var(--pure-black);
             color: var(--pure-white);
@@ -591,7 +645,7 @@
         }
 
         .final-end h2 {
-            font-family: "Classic Comic W01 Regular", 'Impact', 'Arial Black', sans-serif;
+            font-family: 'Impact', 'Arial Black', sans-serif;
             color: var(--blood-red);
             font-size: clamp(24px, 5vw, 36px);
             font-weight: 900;
@@ -602,17 +656,40 @@
             transform: translateY(30px);
         }
 
-        .final-end p {
-            font-family: "Classic Comic W01 Regular", 'Arial', sans-serif;
-            font-size: clamp(16px, 3.5vw, 20px);
-            line-height: 1.6;
-            max-width: 600px;
+        .about-content {
+            max-width: 700px;
             margin: 0 auto;
+            text-align: left;
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+            text-align: left;
+            font-family: 'Arial', sans-serif;
+            font-size: clamp(16px, 3.5vw, 18px);
+            line-height: 1.6;
+            color: var(--pure-white);
             opacity: 0;
             transform: translateY(20px);
         }
 
-        /* Responsive design enhancements */
+        .about-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-content a {
+            color: var(--blood-red);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .about-content a:hover {
+            color: var(--pure-white);
+            background: var(--blood-red);
+            padding: 2px 4px;
+            text-decoration: none;
+        }
+
         @media screen and (min-width: 769px) {
             .content-section {
                 padding: var(--safe-area-top) max(40px, var(--safe-area-right)) 0 max(40px, var(--safe-area-left));
@@ -659,139 +736,38 @@
             }
         }
 
-        /* Hide all elements initially for animation */
         .hidden {
             display: none !important;
         }
- /* Burger Menu Button - now at the bottom */
-.burger-menu {
-    width: 70px;
-    height: 70px;
-    background: var(--pure-black);
-    border: 3px solid var(--blood-red);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 20px rgba(204, 0, 0, 0.3), 4px 4px 0px var(--blood-red);
-    animation: pulse-glow 2s infinite ease-in-out;
-    order: 2; /* Places burger menu at bottom */
-}
-
-@keyframes pulse-glow {
-    0%, 100% {
-        box-shadow: 0 0 20px rgba(204, 0, 0, 0.3), 4px 4px 0px var(--blood-red);
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(204, 0, 0, 0.6), 4px 4px 0px var(--blood-red);
-    }
-}
-
-.burger-menu:hover {
-    background: var(--blood-red);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 0 40px rgba(204, 0, 0, 0.8), 6px 6px 0px var(--pure-black);
-    animation: none;
-}
-
-.burger-menu:active {
-    transform: translateY(0) scale(0.95);
-    box-shadow: 0 0 15px rgba(204, 0, 0, 0.5), 2px 2px 0px var(--pure-black);
-}
-
-/* Burger Lines */
-.burger-line {
-    width: 24px;
-    height: 3px;
-    background: var(--blood-red);
-    margin: 2px 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 2px;
-}
-
-.burger-menu:hover .burger-line {
-    background: var(--pure-white);
-}
-
-.burger-menu.active .burger-line:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-
-.burger-menu.active .burger-line:nth-child(2) {
-    opacity: 0;
-    transform: scale(0);
-}
-
-.burger-menu.active .burger-line:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
-.burger-menu.active:hover .burger-line {
-    background: var(--pure-white);
-}
-
-/* Update existing nav-buttons class */
-.nav-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 10px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px) scale(0.8);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-}
-
-.nav-buttons.open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
-}
     </style>
 </head>
 <body>
-    <!-- Loading spinner -->
     <div class="loading-spinner" id="loadingSpinner"></div>
 
-    <!-- Progress Bar -->
     <div class="progress-container" id="progressContainer">
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
-<!-- Navigation Container -->
-<div class="nav-container" id="navContainer">
-    <div class="nav-buttons" id="navButtons">
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
-    <button class="nav-btn" id="navPrologue" data-tooltip="Prologue">PRLG</button>
-    <button class="nav-btn" id="navStory1" data-tooltip="Story 1">PT1</button>
-    <button class="nav-btn" id="navStory2" data-tooltip="Story 2">PT2</button>
-    <button class="nav-btn" id="navEpilogue" data-tooltip="Epilogue">EPLG</button>
-</div>
-    
-    <!-- Burger Menu Button -->
-    <div class="burger-menu" id="burgerMenu">
-        <div class="burger-line"></div>
-        <div class="burger-line"></div>
-        <div class="burger-line"></div>
+    <div class="nav-container" id="navContainer">
+        <div class="nav-buttons" id="navButtons">
+            <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+            <button class="nav-btn" id="navAbout" data-tooltip="About">ABUT</button>
+            <button class="nav-btn" id="navEpilogue" data-tooltip="Epilogue">EPLG</button>
+            <button class="nav-btn" id="navStory2" data-tooltip="Story 2">PT2</button>
+            <button class="nav-btn" id="navStory1" data-tooltip="Story 1">PT1</button>
+            <button class="nav-btn" id="navPrologue" data-tooltip="Prologue">PRLG</button>
+        </div>
+        
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
     </div>
-</div>
-    
 
-
-    <!-- Main Container -->
     <div class="main-container">
-        <!-- Hero Section -->
         <div class="content-section">
             <div class="hero-section">
-                <!-- Hero Image -->
                 <div class="hero-image-container" id="heroImageContainer">
                     <img class="hero-image" 
                          src="HERO IMAGE.webp" 
@@ -803,14 +779,12 @@
                 <h1 class="main-title" id="mainTitle">How Georgia's Police Crushed Pro-EU Protests</h1>
                 <div class="subtitle" id="subtitle">AN AI-ASSISTED COMIC</div>
                 
-                <!-- Byline -->
                 <div class="byline" id="byline">
                     <p>by Sandro Gvindadze</p>
                     <p class="date">September 2025</p>
                 </div>
             </div>
 
-            <!-- Introduction -->
             <div class="intro-section">
                 <div class="intro-content" id="introContent">
                     <p>Following Georgia's decision to halt EU accession talks, the streets of Tbilisi became a battleground between pro-European demonstrators and riot police. What emerged from these chaotic nights were disturbing accounts of systematic violence and abuse.</p>
@@ -820,13 +794,10 @@
             </div>
         </div>
 
-        <!-- Intro Comic Section -->
         <div class="comic-section">
             <h2 class="comic-section-title" id="introComicTitle">How it all began</h2>
-
             
             <div class="comic-container">
-                <!-- Intro Panel 1 -->
                 <article class="comic-panel" id="introPanelStoryZero1">
                     <img class="comic-image" 
                          src="Story Zero - Page 1.webp" 
@@ -835,7 +806,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story Zero - Page 1.webp - Image not found</div>'">
                 </article>
 
-                <!-- Intro Panel 2 -->
                 <article class="comic-panel" id="introPanelStoryZero2">
                     <img class="comic-image" 
                          src="Story Zero - Page 2.webp" 
@@ -844,7 +814,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story Zero - Page 2.webp - Image not found</div>'">
                 </article>
 
-                <!-- Intro Panel 3 -->
                 <article class="comic-panel" id="introPanelStoryZero3">
                     <img class="comic-image" 
                          src="Story Zero - Page 3.webp" 
@@ -855,13 +824,10 @@
             </div>
         </div>
 
-        <!-- Story 1 Comic Section -->
         <div class="comic-section">
             <h2 class="comic-section-title" id="story1ComicTitle">Story One</h2>
           
-            
             <div class="comic-container">
-                <!-- Story 1 Panel 1 -->
                 <article class="comic-panel" id="story1Panel1">
                     <img class="comic-image" 
                          src="Story One - Page 1.webp" 
@@ -870,7 +836,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 1.webp - Image not found</div>'">
                 </article>
 
-                <!-- Story 1 Panel 2 -->
                 <article class="comic-panel" id="story1Panel2">
                     <img class="comic-image" 
                          src="Story One - Page 2.webp" 
@@ -879,7 +844,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 2.webp - Image not found</div>'">
                 </article>
 
-                <!-- Story 1 Panel 3 -->
                 <article class="comic-panel" id="story1Panel3">
                     <img class="comic-image" 
                          src="Story One - Page 3.webp" 
@@ -888,7 +852,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 3.webp - Image not found</div>'">
                 </article>
 
-                <!-- Story 1 Panel 4 -->
                 <article class="comic-panel" id="story1Panel4">
                     <img class="comic-image" 
                          src="Story One - Page 4.webp" 
@@ -897,7 +860,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 4.webp - Image not found</div>'">
                 </article>
 
-                <!-- Story 1 Panel 5 -->
                 <article class="comic-panel" id="story1Panel5">
                     <img class="comic-image" 
                          src="Story One - Page 5.webp" 
@@ -906,7 +868,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story One - Page 5.webp - Image not found</div>'">
                 </article>
 
-                <!-- Story 1 Panel 6 -->
                 <article class="comic-panel" id="story1Panel6">
                     <img class="comic-image" 
                          src="Story One - Page 6.webp" 
@@ -916,18 +877,15 @@
                 </article>
             </div>
             
-            <!-- Story End Marker -->
             <div class="story-end">
                 <div class="story-end-text">End of Story One</div>
             </div>
         </div>
 
-        <!-- Story 2 Comic Section -->
         <div class="comic-section">
             <h2 class="comic-section-title" id="story2ComicTitle">Story Two</h2>
            
             <div class="comic-container">
-                <!-- Story 2 Panel 1 -->
                 <article class="comic-panel" id="story2Panel1">
                     <img class="comic-image" 
                          src="Story two-Page 1.webp" 
@@ -936,7 +894,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story two-Page 1.webp - Image not found</div>'">
                 </article>
 
-                <!-- Story 2 Panel 2 -->
                 <article class="comic-panel" id="story2Panel2">
                     <img class="comic-image" 
                          src="Story two-Page 2.webp" 
@@ -945,7 +902,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story two-Page 2.webp - Image not found</div>'">
                 </article>
 
-                <!-- Story 2 Panel 3 -->
                 <article class="comic-panel" id="story2Panel3">
                     <img class="comic-image" 
                          src="Story two-Page 3.webp" 
@@ -954,7 +910,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story two-Page 3.webp - Image not found</div>'">
                 </article>
 
-                <!-- Story 2 Panel 4 -->
                 <article class="comic-panel" id="story2Panel4">
                     <img class="comic-image" 
                          src="Story two-Page 4.webp" 
@@ -963,7 +918,6 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story two-Page 4.webp - Image not found</div>'">
                 </article>
 
-                <!-- Story 2 Panel 5 -->
                 <article class="comic-panel" id="story2Panel5">
                     <img class="comic-image" 
                          src="Story two-Page 5.webp" 
@@ -973,19 +927,15 @@
                 </article>
             </div>
             
-            <!-- Story End Marker -->
             <div class="story-end">
                 <div class="story-end-text">End of Story Two</div>
             </div>
         </div>
 
-        <!-- Epilogue Comic Section -->
         <div class="comic-section">
             <h2 class="comic-section-title" id="epilogueComicTitle">Epilogue</h2>
-           
             
             <div class="comic-container">
-                <!-- Epilogue Panel -->
                 <article class="comic-panel" id="storyEpilogue">
                     <img class="comic-image" 
                          src="Story Zero - Epilogue.webp" 
@@ -994,40 +944,36 @@
                          onerror="this.parentElement.innerHTML='<div class=error-placeholder>Story Zero - Epilogue.webp - Image not found</div>'">
                 </article>
             </div>
-            
+        </div>
 
-
-        <!-- Final End Section -->
-        <div class="final-end">
+        <div class="final-end" id="finalSection">
             <h2 id="finalTitle">Do you want to know more?</h2>
-            <p id="finalText">These stories represent just a fraction of the accounts from Georgia's protests. Here's how I told it:</p>
-            <p id="finalText">I created this comic with images generated in OpenArt.ai and Google's Whisk platform</p>
-            <p id="finalText">Most of the images in the prologue and epilogue are based on footage filmed by local journalists.</p>
-            <p id="finalText">One of the most comprehensive compilations of police violence was produced by RFE/RL's Georgian Service. I took screenshots of over 70 images from these two reports (<a href="https://www.youtube.com/watch?v=WgypUf-73vA&t=2s">Report 1</a>, <a href="https://www.youtube.com/watch?v=6Ih7FiHK1Nc&t=413s">Report 2</a>).</p>
-            <p id="finalText">Among other sources, I relied on reporting by other local outlets, Netgazeti and Mtavari TV. I also found additional footage in reports by <a href="https://www.bbc.com/news/articles/c33dv70kjkeo">BBC</a>, <a href="https://www.reuters.com/world/europe/hundreds-arrests-mysterious-beatings-georgia-cracks-down-pro-eu-protests-2024-12-11/">Reuters</a> and <a href="https://news.sky.com/story/we-need-new-life-protesters-undeterred-in-battle-on-the-streets-for-georgias-future-13266530">Sky News</a>. </p>
-            <p id="finalText">When it came to documented figures, <a href="https://idfi.ge/en/human-rights-crisis-in-georgia-following-the-2024-parliamentary-elections">this report</a> by eleven Georgian civil society organisations proved invaluable. It is based on interviews with 117 individuals (of whom 77.7% reported experiencing police violence), and documents widespread torture, ill-treatment, restrictions on freedom of assembly and expression, and targeting of journalists.</p>
-            <p id="finalText">Additionally, the human rights violations during and after the protests were analysed by prominent international rights groups, <a href="https://www.hrw.org/news/2025/01/16/georgia-government-creating-rights-crisis">Human Rights Watch</a> and <a href="https://www.amnesty.org/en/latest/news/2025/09/georgia-sentencing-of-protestors-reveals-abuse-of-justice-system-to-silence-dissent/">Amnesty International</a>. </p>
-            <p id="finalText">The images telling the stories of Giorgi Gamgebeli and Tornike Chelidze are based on their testimonies, which I recorded in August 2025.
-</p>
-          
+            <div class="about-content">
+                <p>These stories represent just a fraction of the accounts from Georgia's protests. Here's how I told them.</p>
+                
+                <p>I created this comic with images generated in OpenAI and Google's Whisk platform. Most of the images in the prologue and epilogue are based on footage filmed by local journalists.</p>
+                
+                <p>One of the most comprehensive compilations of police violence was produced by RFE/RL's Georgian Service. I took screenshots of over 70 images from these two reports (<a href="#" style="color: var(--blood-red); text-decoration: underline;">Report 1</a>, <a href="#" style="color: var(--blood-red); text-decoration: underline;">Report 2</a>).</p>
+                
+                <p>Among other sources, I relied on reporting by other local outlets, Netgazeti and Mtavari TV. I also found additional footage in reports by <a href="#" style="color: var(--blood-red); text-decoration: underline;">BBC</a>, <a href="#" style="color: var(--blood-red); text-decoration: underline;">Reuters</a> and <a href="#" style="color: var(--blood-red); text-decoration: underline;">Sky News</a>.</p>
+                
+                <p>When it came to documented figures, <a href="#" style="color: var(--blood-red); text-decoration: underline;">this report</a> by eleven Georgian civil society organisations proved invaluable. It is based on interviews with 117 individuals (of whom 77.7% reported experiencing police violence) and documents widespread torture, ill-treatment, restrictions on freedom of assembly and expression, and targeting of journalists.</p>
+                <p>The images telling the stories of Giorgi Gamgebeli and Tornike Chelidze are based on their testimonies, which I recorded in August 2025.</p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Register ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
 
-        // Progress bar variables
         let progressTicking = false;
 
-        // Dynamic viewport height fix
         function setDynamicVH() {
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
             document.documentElement.style.setProperty('--dvh', `${window.innerHeight}px`);
         }
 
-        // Performance optimization
         function isLowEndDevice() {
             return navigator.hardwareConcurrency < 4 || 
                    navigator.deviceMemory < 4 || 
@@ -1043,7 +989,6 @@
             }
         }
 
-        // Progress bar functionality
         function updateProgressBar() {
             const progressContainer = document.getElementById('progressContainer');
             const progressBar = document.getElementById('progressBar');
@@ -1055,7 +1000,6 @@
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const scrollPercent = (scrollTop / docHeight) * 100;
             
-            // Show progress bar and navigation after scrolling past hero section
             if (scrollTop > 200) {
                 progressContainer.classList.add('visible');
                 navContainer.classList.add('visible');
@@ -1064,35 +1008,22 @@
                 navContainer.classList.remove('visible');
             }
             
-            // Update progress bar width
             progressBar.style.width = Math.min(Math.max(scrollPercent, 0), 100) + '%';
         }
 
-        // Smooth scroll to section function
         function scrollToSection(targetId) {
             const targetElement = document.getElementById(targetId);
-            console.log('scrollToSection called with:', targetId);
-            console.log('Target element found:', targetElement);
             
-            if (!targetElement) {
-                console.log('Target element not found!');
-                return;
-            }
+            if (!targetElement) return;
             
             const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
-            const offset = 100; // Offset for better positioning
+            const offset = 100;
             const targetPosition = Math.max(0, elementTop - offset);
-            
-            console.log('Element top:', elementTop);
-            console.log('Target position:', targetPosition);
-            console.log('Current scroll:', window.pageYOffset);
             
             const scrollDuration = 1000;
             const start = window.pageYOffset;
             const distance = targetPosition - start;
             const startTime = performance.now();
-            
-            console.log('Distance to scroll:', distance);
             
             function easeInOutCubic(t) {
                 return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -1113,7 +1044,6 @@
             requestAnimationFrame(animateScroll);
         }
 
-        // Back to top functionality
         function scrollToTop() {
             const scrollDuration = 800;
             const start = window.pageYOffset;
@@ -1138,117 +1068,109 @@
             requestAnimationFrame(animateScroll);
         }
 
-        // Setup navigation functionality
-function setupNavigation() {
-    // Navigation button event listeners
-    const navPrologue = document.getElementById('navPrologue');
-    const navStory1 = document.getElementById('navStory1');
-    const navStory2 = document.getElementById('navStory2');
-    const navEpilogue = document.getElementById('navEpilogue');
-    const backToTop = document.getElementById('backToTop');
-    const burgerMenu = document.getElementById('burgerMenu');
-    const navButtons = document.getElementById('navButtons');
+        function setupNavigation() {
+            const navPrologue = document.getElementById('navPrologue');
+            const navStory1 = document.getElementById('navStory1');
+            const navStory2 = document.getElementById('navStory2');
+            const navEpilogue = document.getElementById('navEpilogue');
+            const navAbout = document.getElementById('navAbout');
+            const backToTop = document.getElementById('backToTop');
+            const burgerMenu = document.getElementById('burgerMenu');
+            const navButtons = document.getElementById('navButtons');
 
-    // Burger menu toggle functionality
-    let isMenuOpen = false;
-    
-    function toggleMenu() {
-        isMenuOpen = !isMenuOpen;
-        burgerMenu.classList.toggle('active', isMenuOpen);
-        navButtons.classList.toggle('open', isMenuOpen);
-        
-        // Add haptic feedback on mobile
-        if ('vibrate' in navigator) {
-            navigator.vibrate(50);
+            let isMenuOpen = false;
+            
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                burgerMenu.classList.toggle('active', isMenuOpen);
+                navButtons.classList.toggle('open', isMenuOpen);
+                
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(50);
+                }
+            }
+
+            function closeMenu() {
+                isMenuOpen = false;
+                burgerMenu.classList.remove('active');
+                navButtons.classList.remove('open');
+            }
+
+            if (burgerMenu) {
+                burgerMenu.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleMenu();
+                });
+                burgerMenu.addEventListener('touchstart', function() {}, { passive: true });
+            }
+
+            document.addEventListener('click', (e) => {
+                const navContainer = document.getElementById('navContainer');
+                if (isMenuOpen && navContainer && !navContainer.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+
+            if (navPrologue) {
+                navPrologue.addEventListener('click', () => {
+                    scrollToSection('introComicTitle');
+                    closeMenu();
+                });
+                navPrologue.addEventListener('touchstart', function() {}, { passive: true });
+            }
+
+            if (navStory1) {
+                navStory1.addEventListener('click', () => {
+                    scrollToSection('story1ComicTitle');
+                    closeMenu();
+                });
+                navStory1.addEventListener('touchstart', function() {}, { passive: true });
+            }
+
+            if (navStory2) {
+                navStory2.addEventListener('click', () => {
+                    scrollToSection('story2ComicTitle');
+                    closeMenu();
+                });
+                navStory2.addEventListener('touchstart', function() {}, { passive: true });
+            }
+
+            if (navEpilogue) {
+                navEpilogue.addEventListener('click', () => {
+                    scrollToSection('epilogueComicTitle');
+                    closeMenu();
+                });
+                navEpilogue.addEventListener('touchstart', function() {}, { passive: true });
+            }
+
+            if (navAbout) {
+                navAbout.addEventListener('click', () => {
+                    scrollToSection('finalSection');
+                    closeMenu();
+                });
+                navAbout.addEventListener('touchstart', function() {}, { passive: true });
+            }
+
+            if (backToTop) {
+                backToTop.addEventListener('click', () => {
+                    scrollToTop();
+                    closeMenu();
+                });
+                backToTop.addEventListener('touchstart', function() {}, { passive: true });
+            }
         }
-    }
 
-    // Close menu when clicking on navigation buttons
-    function closeMenu() {
-        isMenuOpen = false;
-        burgerMenu.classList.remove('active');
-        navButtons.classList.remove('open');
-    }
-
-    if (burgerMenu) {
-        burgerMenu.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleMenu();
-        });
-        burgerMenu.addEventListener('touchstart', function() {}, { passive: true });
-    }
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        const navContainer = document.getElementById('navContainer');
-        if (isMenuOpen && navContainer && !navContainer.contains(e.target)) {
-            closeMenu();
-        }
-    });
-
-    // Debug: Check if target elements exist
-    console.log('Target elements check:');
-    console.log('story1ComicTitle:', document.getElementById('story1ComicTitle'));
-    console.log('story2ComicTitle:', document.getElementById('story2ComicTitle'));
-    console.log('epilogueComicTitle:', document.getElementById('epilogueComicTitle'));
-
-if (navPrologue) {
-    navPrologue.addEventListener('click', () => {
-        console.log('Prologue clicked, scrolling to introComicTitle');
-        scrollToSection('introComicTitle');
-        closeMenu();
-    });
-    navPrologue.addEventListener('touchstart', function() {}, { passive: true });
-}
-    if (navStory1) {
-        navStory1.addEventListener('click', () => {
-            console.log('S1 clicked, scrolling to story1ComicTitle');
-            scrollToSection('story1ComicTitle');
-            closeMenu();
-        });
-        navStory1.addEventListener('touchstart', function() {}, { passive: true });
-    }
-
-    if (navStory2) {
-        navStory2.addEventListener('click', () => {
-            console.log('S2 clicked, scrolling to story2ComicTitle');
-            scrollToSection('story2ComicTitle');
-            closeMenu();
-        });
-        navStory2.addEventListener('touchstart', function() {}, { passive: true });
-    }
-
-    if (navEpilogue) {
-        navEpilogue.addEventListener('click', () => {
-            console.log('EP clicked, scrolling to epilogueComicTitle');
-            scrollToSection('epilogueComicTitle');
-            closeMenu();
-        });
-        navEpilogue.addEventListener('touchstart', function() {}, { passive: true });
-    }
-
-    if (backToTop) {
-        backToTop.addEventListener('click', () => {
-            scrollToTop();
-            closeMenu();
-        });
-        backToTop.addEventListener('touchstart', function() {}, { passive: true });
-    }
-}
-        // Setup comic panel scroll animations
         function setupComicPanelAnimations() {
             const panels = document.querySelectorAll('.comic-panel');
-            console.log(`Found ${panels.length} comic panels`);
             
-            // Initialize all panels with GSAP
             gsap.set(panels, {
                 opacity: 0,
                 y: 50,
                 scale: 0.95
             });
             
-            panels.forEach((panel, index) => {
+            panels.forEach((panel) => {
                 ScrollTrigger.create({
                     trigger: panel,
                     start: "top 90%",
@@ -1264,7 +1186,6 @@ if (navPrologue) {
                         });
                     },
                     onLeave: () => {
-                        // Keep panels visible when scrolling down
                     },
                     onEnterBack: () => {
                         gsap.to(panel, {
@@ -1291,11 +1212,9 @@ if (navPrologue) {
             ScrollTrigger.refresh();
         }
 
-        // Main animation sequence
         function animateMainMenu() {
             const tl = gsap.timeline();
             
-            // Set initial states
             gsap.set("#heroImageContainer", { opacity: 0, y: 30, scale: 0.95 });
             gsap.set("#mainTitle", { opacity: 0, y: -30, scale: 0.9 });
             gsap.set("#subtitle", { opacity: 0, x: -50, rotation: -2 });
@@ -1304,7 +1223,7 @@ if (navPrologue) {
             gsap.set(".comic-section-title", { opacity: 0, y: 30 });
             gsap.set(".comic-section-subtitle", { opacity: 0, y: 20 });
             gsap.set("#finalTitle", { opacity: 0, y: 30 });
-            gsap.set("#finalText", { opacity: 0, y: 20 });
+            gsap.set(".about-content p", { opacity: 0, y: 20 });
             
             tl.to("#heroImageContainer", {
                 opacity: 1,
@@ -1359,17 +1278,17 @@ if (navPrologue) {
                 duration: 0.8,
                 ease: "power2.out"
             }, "-=0.2")
-            .to("#finalText", {
+            .to(".about-content p", {
                 opacity: 1,
                 y: 0,
                 duration: 0.6,
+                stagger: 0.1,
                 ease: "power2.out"
-            }, "-=0.4");
+            }, "-=0.3");
 
             setupComicPanelAnimations();
         }
 
-        // Error handling
         function handleErrors() {
             window.addEventListener('error', (e) => {
                 console.error('Error:', e.error);
@@ -1383,12 +1302,10 @@ if (navPrologue) {
             }, true);
         }
 
-        // Initialize everything
         function initializeApp() {
             const spinner = document.getElementById('loadingSpinner');
             if (spinner) spinner.remove();
             
-            // Force scroll to top
             window.scrollTo(0, 0);
             document.documentElement.scrollTop = 0;
             document.body.scrollTop = 0;
@@ -1396,56 +1313,32 @@ if (navPrologue) {
             setDynamicVH();
             initializeGSAP();
             handleErrors();
-            
-            // Initialize progress bar
             updateProgressBar();
-            
-            // Setup navigation
             setupNavigation();
             
-            // Debug: Check if navigation elements exist
-            console.log('Nav container:', document.getElementById('navContainer'));
-            console.log('Story 1 button:', document.getElementById('navStory1'));
-            console.log('Story 2 button:', document.getElementById('navStory2'));
-            console.log('Epilogue button:', document.getElementById('navEpilogue'));
-            console.log('Back to top button:', document.getElementById('backToTop'));
-            
-            // Mobile debug
-            console.log('Window width:', window.innerWidth);
-            console.log('Is mobile device:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-            
-            // Show navigation immediately on mobile after page load
             const navContainer = document.getElementById('navContainer');
             if (navContainer && window.innerWidth <= 768) {
-                console.log('Mobile detected, showing navigation after 2 seconds');
                 setTimeout(() => {
                     navContainer.classList.add('visible');
-                    console.log('Navigation should now be visible on mobile');
                 }, 2000);
             }
             
             setTimeout(() => {
                 animateMainMenu();
-                // Refresh ScrollTrigger after setup
                 setTimeout(() => {
-                    console.log('Refreshing ScrollTrigger...');
                     ScrollTrigger.refresh();
-                    console.log('ScrollTrigger refreshed');
                 }, 2000);
             }, 100);
         }
 
-        // Force scroll to top on page reload
         window.addEventListener('beforeunload', () => {
             window.scrollTo(0, 0);
         });
 
-        // Prevent browser from restoring scroll position
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
 
-        // Event listeners
         window.addEventListener('resize', () => {
             setDynamicVH();
             ScrollTrigger.refresh();
@@ -1460,7 +1353,6 @@ if (navPrologue) {
             }, 100);
         });
 
-        // Progress bar scroll listener
         window.addEventListener('scroll', function() {
             if (!progressTicking) {
                 requestAnimationFrame(() => {
@@ -1471,7 +1363,6 @@ if (navPrologue) {
             }
         }, { passive: true });
 
-        // Initialize when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initializeApp);
         } else {
