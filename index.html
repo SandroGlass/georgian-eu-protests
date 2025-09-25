@@ -752,6 +752,34 @@
         .hidden {
             display: none !important;
         }
+
+
+/* Add this CSS to your existing <style> section */
+
+.copyright-footer {
+    background: var(--pure-black);
+    color: var(--mid-gray);
+    padding: 20px 20px max(20px, var(--safe-area-bottom));
+    text-align: center;
+    border-top: 2px solid var(--blood-red);
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    position: relative;
+}
+
+.copyright-footer p {
+    margin: 0;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media screen and (max-width: 768px) {
+    .copyright-footer {
+        font-size: 12px;
+        padding: 15px max(15px, var(--safe-area-right)) max(15px, var(--safe-area-bottom)) max(15px, var(--safe-area-left));
+    }
+}
     </style>
 </head>
 <body>
@@ -976,7 +1004,12 @@
                 
             </div>
         </div>
+
+        
     </div>
+<div class="copyright-footer" id="copyrightFooter">
+    <p>&copy; 2025 Sandro Gvindadze. All rights reserved.</p>
+</div>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
